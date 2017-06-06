@@ -3,6 +3,7 @@ use_frameworks!
 
 def common
     pod 'Yaml'
+    pod 'UIColor_Hex_Swift'
 end
 
 target 'Goo' do

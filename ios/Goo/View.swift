@@ -3,9 +3,11 @@ import Yaml
 
 class View {
     let id: String?
+    
     let anchor: Anchor
     let origin: Vector
     let layout: Layout
+    
     let left: Double?
     let right: Double?
     let top: Double?
@@ -13,37 +15,16 @@ class View {
     let width: Double?
     let height: Double?
     
+    let background: UIColor?
+    
+    let children: [View]
+    
     static let anchorDefault = Anchor.topFill
     static let originDefault = Vector.zero
     
     static func parse(bundle: Bundle, resource: String) throws -> View {
-        let text = try Goo.load(bundle: bundle, resource: resource)
-        let yaml = try Yaml.load(text)
+        let yaml = try Goo.load(bundle: bundle, resource: resource)
         return View(yaml)
-    }
-    
-    init(
-        id: String? = nil,
-        anchor: Anchor = anchorDefault,
-        origin: Vector = originDefault,
-        layout: Layout = Layout(),
-        left: Double? = nil,
-        right: Double? = nil,
-        top: Double? = nil,
-        bottom: Double? = nil,
-        width: Double? = nil,
-        height: Double? = nil
-    ) {
-        self.id = id
-        self.anchor = anchor
-        self.origin = origin
-        self.layout = layout
-        self.left = left
-        self.right = right
-        self.top = top
-        self.bottom = bottom
-        self.width = width
-        self.height = height
     }
     
     init(_ yaml: Yaml) {
@@ -71,6 +52,12 @@ class View {
         bottom = yaml["bottom"].double
         width = yaml["width"].double
         height = yaml["height"].double
+        
+        background = yaml["background"].color
+        
+        children = yaml["children"].arrayValue.map { View($0) }
     }
+    
+    
     
 }

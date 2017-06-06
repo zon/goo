@@ -10,6 +10,9 @@
 		2DFC93181D3D6A6F3C9590EE /* Pods_GooTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41BD0F94A74FDCE96A56A98C /* Pods_GooTests.framework */; };
 		B6881F7EC5E2F1F675B7BB49 /* Pods_Goo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF95758AE2758E83AF51938 /* Pods_Goo.framework */; };
 		EC3A54211EE6F7D300935FE6 /* Goo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3A54201EE6F7D300935FE6 /* Goo.swift */; };
+		ECA112AD1EE7554F00B087BD /* YamlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112AC1EE7554F00B087BD /* YamlTests.swift */; };
+		ECA112AF1EE755C800B087BD /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112AE1EE755C800B087BD /* BaseTestCase.swift */; };
+		ECA112B11EE7595400B087BD /* basic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = ECA112B01EE7595400B087BD /* basic.yaml */; };
 		ECB12E671EE5DE13001D166D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB12E661EE5DE13001D166D /* AppDelegate.swift */; };
 		ECB12E691EE5DE13001D166D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB12E681EE5DE13001D166D /* ViewController.swift */; };
 		ECB12E6C1EE5DE13001D166D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECB12E6A1EE5DE13001D166D /* Main.storyboard */; };
@@ -44,6 +47,9 @@
 		5DF95758AE2758E83AF51938 /* Pods_Goo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Goo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3AB7FCA191C7AB227F0902 /* Pods-Goo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Goo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Goo/Pods-Goo.release.xcconfig"; sourceTree = "<group>"; };
 		EC3A54201EE6F7D300935FE6 /* Goo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goo.swift; sourceTree = "<group>"; };
+		ECA112AC1EE7554F00B087BD /* YamlTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamlTests.swift; sourceTree = "<group>"; };
+		ECA112AE1EE755C800B087BD /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
+		ECA112B01EE7595400B087BD /* basic.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic.yaml; sourceTree = "<group>"; };
 		ECB12E631EE5DE13001D166D /* Goo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB12E661EE5DE13001D166D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECB12E681EE5DE13001D166D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -170,9 +176,12 @@
 		ECE72F411EE7306A00C3A72A /* GooTests */ = {
 			isa = PBXGroup;
 			children = (
+				ECA112B01EE7595400B087BD /* basic.yaml */,
 				ECE72F4A1EE7344300C3A72A /* view.yaml */,
 				ECE72F441EE7306A00C3A72A /* Info.plist */,
 				ECE72F481EE7318600C3A72A /* ViewParseTests.swift */,
+				ECA112AC1EE7554F00B087BD /* YamlTests.swift */,
+				ECA112AE1EE755C800B087BD /* BaseTestCase.swift */,
 			);
 			path = GooTests;
 			sourceTree = "<group>";
@@ -276,6 +285,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECA112B11EE7595400B087BD /* basic.yaml in Resources */,
 				ECE72F4B1EE7344300C3A72A /* view.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,12 +413,14 @@
 				ECE72F511EE739B000C3A72A /* Bounds.swift in Sources */,
 				ECE72F541EE739B000C3A72A /* Anchor.swift in Sources */,
 				ECE72F4E1EE739B000C3A72A /* Goo.swift in Sources */,
+				ECA112AD1EE7554F00B087BD /* YamlTests.swift in Sources */,
 				ECE72F521EE739B000C3A72A /* Inset.swift in Sources */,
 				ECE72F551EE739B000C3A72A /* GooError.swift in Sources */,
 				ECE72F561EE739B400C3A72A /* YamlExtension.swift in Sources */,
 				ECE72F531EE739B000C3A72A /* Layout.swift in Sources */,
 				ECE72F501EE739B000C3A72A /* Vector.swift in Sources */,
 				ECE72F4F1EE739B000C3A72A /* View.swift in Sources */,
+				ECA112AF1EE755C800B087BD /* BaseTestCase.swift in Sources */,
 				ECE72F571EE739B400C3A72A /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,6 +624,7 @@
 				ECE72F471EE7306A00C3A72A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
