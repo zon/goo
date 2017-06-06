@@ -1,0 +1,25 @@
+type: Layout
+fonts:
+  - src: /roboto.ttl
+    default: true
+children:
+
+  - type: Image
+    left: 10
+    width: 30
+    height: 30
+    src: /logo.png
+
+  - type: Label
+    left: 50
+    right: 10
+    height: 30
+    text: Title
+    font: Roboto-Medium
+    font-size: 24
+
+  - type: Label
+    left: 10
+    right: 10
+    text: >
+        Lots and lots of words.
