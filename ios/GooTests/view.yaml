@@ -1,0 +1,11 @@
+id: thing
+anchor: fill
+origin: center
+layout:
+    type: grid
+left: 5
+right: 7
+top: 11
+bottom: 13
+width: 17
+height: 19

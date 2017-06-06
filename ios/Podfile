@@ -1,0 +1,14 @@
+platform :ios, '9.0'
+use_frameworks!
+
+def common
+    pod 'Yaml'
+end
+
+target 'Goo' do
+    common
+end
+
+target 'GooTests' do
+    common
+end
