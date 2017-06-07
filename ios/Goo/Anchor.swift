@@ -19,7 +19,10 @@ class Anchor : Bounds {
     static let rightFill = Anchor(minX: 1, maxX: 1, maxY: 1)
     static let fill = Anchor(maxX: 1, maxY: 1)
     
-    static let dictionary: [String: Anchor] = [
+    static let fallback = topFill
+    static let originFallback = Vector.zero
+    
+    static let strings: [String: Anchor] = [
         "top-left": .topLeft,
         "top-center": .topCenter,
         "top-right": .topRight,
@@ -38,8 +41,27 @@ class Anchor : Bounds {
         "fill": .fill
     ]
     
+    static let defaultOrigins: [Anchor: Vector] = [
+        topLeft: Vector(0, 0),
+        topCenter: Vector(0.5, 0),
+        topRight: Vector(1, 0),
+        centerLeft: Vector(0, 0.5),
+        center: Vector(0.5, 0.5),
+        centerRight: Vector(1, 0.5),
+        bottomLeft: Vector(0, 1),
+        bottomCenter: Vector(0.5, 1),
+        bottomRight: Vector(1, 1),
+        topFill: Vector(0, 0),
+        horizontalFill: Vector(0, 0.5),
+        bottomFill: Vector(0, 1),
+        leftFill: Vector(0, 0),
+        verticalFill: Vector(0.5, 0),
+        rightFill: Vector(1, 0),
+        fill: Vector(0, 0)
+    ]
+    
     var xCollapsed: Bool {
-        return min.x == max.y
+        return min.x == max.x
     }
     
     var yCollapsed: Bool {

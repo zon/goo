@@ -1,9 +1,17 @@
 import Foundation
 import Yaml
 
-class Bounds {
+class Bounds: Hashable, Equatable, CustomStringConvertible {
     let min: Vector
     let max: Vector
+    
+    var hashValue: Int {
+        return min.hashValue ^ max.hashValue &* 9973
+    }
+    
+    var description: String {
+        return "Bounds(\(min.x), \(min.y), \(max.x), \(max.y))"
+    }
     
     init(min: Vector, max: Vector) {
         self.min = min

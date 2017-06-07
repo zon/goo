@@ -1,13 +1,21 @@
 import Foundation
 import Yaml
 
-struct Vector {
+struct Vector: Hashable, Equatable, CustomStringConvertible {
     let x: Double
     let y: Double
     
     static let zero = Vector(0, 0)
     static let half = Vector(0.5, 0.5)
     static let one = Vector(1, 1)
+    
+    var hashValue: Int {
+        return x.hashValue ^ y.hashValue &* 9719
+    }
+    
+    var description: String {
+        return "(\(x), \(y))"
+    }
     
     init(_ x: Double, _ y: Double) {
         self.x = x

@@ -22,10 +22,10 @@ class View {
         return View(yaml)
     }
     
-    init(_ yaml: Yaml) {
+    init(_ yaml: Yaml, transform: Transform? = nil) {
         id = yaml["id"].string
         type = yaml["type"].string.flatMap { t in ViewType(rawValue: t) } ?? .view
-        transform = Transform(yaml)
+        self.transform = transform ?? Transform(yaml)
         layout = Layout(yaml["layout"])
         
         background = yaml["background"].color

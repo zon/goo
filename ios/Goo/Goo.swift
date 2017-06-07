@@ -12,4 +12,8 @@ class Goo {
         }
     }
     
+    static func load(resource: String) throws -> Yaml {
+        return try load(bundle: Bundle(for: Goo.self), resource: resource)
+    }
+    
 }
