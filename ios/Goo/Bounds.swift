@@ -27,3 +27,7 @@ class Bounds {
 func ==(left: Bounds, right: Bounds) -> Bool {
     return left.min == right.min && left.max == right.max
 }
+
+func *(left: Bounds, right: Vector) -> Bounds {
+    return Bounds(min: left.min * right, max: left.max * right)
+}

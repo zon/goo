@@ -7,15 +7,15 @@ class ViewParseTests: BaseTestCase {
         let view = View(load(resource: "view"))
             
         assert(view.id == "thing")
-        assert(view.anchor == Anchor.fill)
-        assert(view.origin == Vector.half)
+        assert(view.transform.anchor == Anchor.fill)
+        assert(view.transform.origin == Vector.half)
         assert(view.layout.type == .grid)
-        assert(view.left == 5)
-        assert(view.right == 7)
-        assert(view.top == 11)
-        assert(view.bottom == 13)
-        assert(view.width == 17)
-        assert(view.height == 19)
+        assert(view.transform.left == 5)
+        assert(view.transform.right == 7)
+        assert(view.transform.top == 11)
+        assert(view.transform.bottom == 13)
+        assert(view.transform.width == 17)
+        assert(view.transform.height == 19)
     }
     
 }

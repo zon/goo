@@ -14,6 +14,11 @@ struct Vector {
         self.y = y
     }
     
+    init(_ size: CGSize) {
+        x = Double(size.width)
+        y = Double(size.height)
+    }
+    
     init?(_ yaml: Yaml) {
         if let x = yaml.arrayValue[safe: 0]?.double, let y = yaml.arrayValue[safe: 1]?.double {
             self.x = x
@@ -34,6 +39,10 @@ struct Vector {
 
 func ==(left: Vector, right: Vector) -> Bool {
     return left.x == right.x && left.y == right.y
+}
+
+func *(left: Vector, right: Vector) -> Vector {
+    return Vector(left.x * right.x, left.y * right.y)
 }
 
 func *(left: Vector, right: Double) -> Vector {

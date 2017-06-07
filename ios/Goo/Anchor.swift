@@ -38,4 +38,12 @@ class Anchor : Bounds {
         "fill": .fill
     ]
     
+    var xCollapsed: Bool {
+        return min.x == max.y
+    }
+    
+    var yCollapsed: Bool {
+        return min.y == max.y
+    }
+    
 }

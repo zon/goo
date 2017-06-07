@@ -1,26 +1,21 @@
 import Foundation
 import Yaml
 
+enum ViewType: String {
+    case view = "view"
+    case root = "root"
+}
+
 class View {
     let id: String?
-    
-    let anchor: Anchor
-    let origin: Vector
+    let type: ViewType
+    let transform: Transform
     let layout: Layout
-    
-    let left: Double?
-    let right: Double?
-    let top: Double?
-    let bottom: Double?
-    let width: Double?
-    let height: Double?
     
     let background: UIColor?
     
-    let children: [View]
-    
-    static let anchorDefault = Anchor.topFill
-    static let originDefault = Vector.zero
+    weak var parent: View?
+    var children: [View]
     
     static func parse(bundle: Bundle, resource: String) throws -> View {
         let yaml = try Goo.load(bundle: bundle, resource: resource)
@@ -29,35 +24,31 @@ class View {
     
     init(_ yaml: Yaml) {
         id = yaml["id"].string
-        
-        let anchorData = yaml["anchor"]
-        if let key = anchorData.string {
-            anchor = Anchor.dictionary[key] ?? View.anchorDefault
-        } else {
-            anchor = Anchor(anchorData) ?? View.anchorDefault
-        }
-        
-        let originData = yaml["origin"]
-        if originData.string == "center" {
-            origin = Vector.half
-        } else  {
-            origin = Vector(originData) ?? View.originDefault
-        }
-        
+        type = yaml["type"].string.flatMap { t in ViewType(rawValue: t) } ?? .view
+        transform = Transform(yaml)
         layout = Layout(yaml["layout"])
-        
-        left = yaml["left"].double ?? yaml["x"].double
-        right = yaml["right"].double
-        top = yaml["top"].double ?? yaml["y"].double
-        bottom = yaml["bottom"].double
-        width = yaml["width"].double
-        height = yaml["height"].double
         
         background = yaml["background"].color
         
-        children = yaml["children"].arrayValue.map { View($0) }
+        children = []
+        children = yaml["children"].arrayValue.map { y in
+            let child = View(y)
+            child.parent = self
+            return child
+        }
     }
     
-    
+    func export(parent: UIView? = nil) -> UIView {
+        let view = UIView(frame: transform.export(parent: parent))
+        
+        view.backgroundColor = background
+        
+        for child in children {
+            let c = child.export(parent: view)
+            view.addSubview(c)
+        }
+        
+        return view
+    }
     
 }

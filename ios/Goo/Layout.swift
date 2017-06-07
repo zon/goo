@@ -1,11 +1,11 @@
 import Foundation
 import Yaml
 
-enum LayoutType {
-    case absolute
-    case vertical
-    case horizontal
-    case grid
+enum LayoutType: String {
+    case absolute = "absolute"
+    case vertical = "vertical"
+    case horizontal = "horizontal"
+    case grid = "grid"
 }
 
 class Layout {
@@ -16,12 +16,6 @@ class Layout {
     static let typeDefault = LayoutType.vertical
     static let paddingDefault = Inset.zero
     static let spacingDefault = Vector.zero
-    static let typeDictionary: [String: LayoutType] = [
-        "absolute": .absolute,
-        "vertical": .vertical,
-        "horizontal": .horizontal,
-        "grid": .grid
-    ]
     
     init(type: LayoutType = typeDefault, padding: Inset = paddingDefault, spacing: Vector = spacingDefault) {
         self.type = type
@@ -30,11 +24,7 @@ class Layout {
     }
     
     init(_ yaml: Yaml) {
-        if let key = yaml["type"].string {
-            type = Layout.typeDictionary[key] ?? Layout.typeDefault
-        } else {
-            type = Layout.typeDefault
-        }
+        type = yaml["type"].string.flatMap { LayoutType(rawValue: $0) } ?? Layout.typeDefault
         
         padding = Inset(yaml["padding"]) ?? Layout.paddingDefault
         
