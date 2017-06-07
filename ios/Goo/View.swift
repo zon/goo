@@ -26,7 +26,7 @@ class View {
         id = yaml["id"].string
         type = yaml["type"].string.flatMap { t in ViewType(rawValue: t) } ?? .view
         self.transform = transform ?? Transform(yaml)
-        layout = Layout(yaml["layout"])
+        layout = Layout(yaml)
         
         background = yaml["background"].color
         
@@ -38,13 +38,14 @@ class View {
         }
     }
     
-    func export(parent: UIView? = nil) -> UIView {
-        let view = UIView(frame: transform.export(parent: parent))
+    func export(within: CGRect) -> UIView {
+        let frame = transform.export(within: within)
         
+        let view = UIView(frame: frame)
         view.backgroundColor = background
         
         for child in children {
-            let c = child.export(parent: view)
+            let c = child.export(within: within - layout.padding)
             view.addSubview(c)
         }
         

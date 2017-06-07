@@ -16,6 +16,13 @@ struct Inset {
         self.bottom = bottom
     }
     
+    init(_ value: Double) {
+        left = value
+        right = value
+        top = value
+        bottom = value
+    }
+    
     init?(_ yaml: Yaml) {
         let left = yaml["left"].double
         let right = yaml["right"].double
@@ -31,4 +38,17 @@ struct Inset {
         }
     }
     
+}
+
+func -(a: CGRect, b: Inset) -> CGRect {
+    let left = CGFloat(b.left)
+    let right = CGFloat(b.right)
+    let top = CGFloat(b.top)
+    let bottom = CGFloat(b.bottom)
+    return CGRect(
+        x: a.origin.x + left,
+        y: a.origin.y + top,
+        width: a.size.width - left - right,
+        height: a.size.height - top - bottom
+    )
 }

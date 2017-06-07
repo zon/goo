@@ -59,41 +59,37 @@ class Transform {
         self.init(size: screen.bounds.size)
     }
     
-    func export(parent: CGRect? = nil) -> CGRect {
-        if let parent = parent {
-            var x = 0.0
-            var y = 0.0
-            var w = 0.0
-            var h = 0.0
-            let bounds = anchor * Vector(parent.size)
-            
-            if anchor.xCollapsed {
-                x = bounds.min.x + left - right - width * origin.x
-                w = width
-                
-            } else {
-                x = bounds.min.x + left
-                w = bounds.max.x - bounds.min.x - left - right
-            }
-            
-            if anchor.yCollapsed {
-                y = bounds.min.y + top - bottom - height * origin.y
-                h = height
-                
-            } else {
-                y = bounds.min.y + top
-                h = bounds.max.y - bounds.min.y - top - bottom
-            }
-            
-            return CGRect(x: x, y: y, width: w, height: h)
+    func export(within: CGRect) -> CGRect {
+        var x = 0.0
+        var y = 0.0
+        var w = 0.0
+        var h = 0.0
+        let bounds = anchor * Vector(within.size)
+        
+        if anchor.xCollapsed {
+            x = bounds.min.x + left - right - width * origin.x
+            w = width
             
         } else {
-            return CGRect(x: 0, y: 0, width: width, height: height)
+            x = bounds.min.x + left
+            w = bounds.max.x - bounds.min.x - left - right
         }
-    }
-    
-    func export(parent: UIView? = nil) -> CGRect {
-        return export(parent: parent.map { $0.frame })
+        
+        if anchor.yCollapsed {
+            y = bounds.min.y + top - bottom - height * origin.y
+            h = height
+            
+        } else {
+            y = bounds.min.y + top
+            h = bounds.max.y - bounds.min.y - top - bottom
+        }
+        
+        return CGRect(
+            x: Double(within.origin.x) + x,
+            y: Double(within.origin.y) + y,
+            width: w,
+            height: h
+        )
     }
     
 }
