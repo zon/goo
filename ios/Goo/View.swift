@@ -44,9 +44,40 @@ class View {
         let view = UIView(frame: frame)
         view.backgroundColor = background
         
-        for child in children {
-            let c = child.export(within: within - layout.padding)
-            view.addSubview(c)
+        let padded = within - layout.padding
+        switch layout.type {
+        case .vertical:
+            var y = 0.0
+            for child in children {
+                if child.layout.ignore {
+                    view.addSubview(child.export(within: within))
+                } else {
+                    let v = child.export(within: padded - Inset(top: y))
+                    view.addSubview(v)
+                    y += Double(v.frame.maxY) - layout.padding.top + layout.spacing.y
+                }
+            }
+            
+        case .horizontal:
+            var x = 0.0
+            for child in children {
+                if child.layout.ignore {
+                    view.addSubview(child.export(within: within))
+                } else {
+                    let v = child.export(within: padded - Inset(left: x))
+                    view.addSubview(v)
+                    x += Double(v.frame.maxX) - layout.padding.left + layout.spacing.x
+                }
+            }
+            
+        default:
+            for child in children {
+                if child.layout.ignore {
+                    view.addSubview(child.export(within: within))
+                } else {
+                    view.addSubview(child.export(within: padded))
+                }
+            }
         }
         
         return view

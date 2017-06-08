@@ -12,15 +12,17 @@ class Layout {
     let type: LayoutType
     let padding: Inset
     let spacing: Vector
+    let ignore: Bool
     
     static let typeFallback = LayoutType.vertical
     static let paddingFallback = Inset.zero
     static let spacingFallback = Vector.zero
     
-    init(type: LayoutType = typeFallback, padding: Inset = paddingFallback, spacing: Vector = spacingFallback) {
+    init(type: LayoutType = typeFallback, padding: Inset = paddingFallback, spacing: Vector = spacingFallback, ignore: Bool = false) {
         self.type = type
         self.padding = padding
         self.spacing = spacing
+        self.ignore = ignore
     }
     
     init(_ yaml: Yaml) {
@@ -31,6 +33,8 @@ class Layout {
         
         let spacingProp = yaml["spacing"]
         spacing = Vector.one * spacingProp.double ?? Vector(spacingProp) ?? Layout.spacingFallback
+        
+        ignore = yaml["ignore-layout"].bool ?? false
     }
     
 }
