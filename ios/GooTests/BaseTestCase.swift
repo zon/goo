@@ -13,7 +13,7 @@ class BaseTestCase: XCTestCase {
         }
     }
     
-    func assertEqual<T: Equatable>(_ a: T?, _ b: T?) {
+    func equal<T: Equatable>(_ a: T?, _ b: T?) {
         let ad = a.map { String(describing: $0) } ?? "nil"
         let bd = b.map { String(describing: $0) } ?? "nil"
         assert(a == b, "\(ad) is not equal to \(bd)")

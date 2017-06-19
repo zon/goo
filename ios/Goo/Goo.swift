@@ -1,7 +1,7 @@
 import Foundation
 import Yaml
 
-class Goo {
+public class Goo {
     
     static func load(bundle: Bundle, resource: String) throws -> Yaml {
         if let url = bundle.url(forResource: resource, withExtension: "yaml") {

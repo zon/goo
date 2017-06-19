@@ -1,30 +1,36 @@
 import Foundation
+import UIKit
 import Yaml
 
-enum ViewType: String {
-    case view = "view"
-    case root = "root"
-}
-
-class View {
+public class Element {
     let id: String?
-    let type: ViewType
     let transform: Transform
     let layout: Layout
     
     let background: UIColor?
     
-    weak var parent: View?
-    var children: [View]
+    weak var parent: Element?
+    var children: [Element]
     
-    static func parse(bundle: Bundle, resource: String) throws -> View {
+    private var _view: UIView? = nil
+    
+    var view: UIView? {
+        get { return _view }
+    }
+    
+    static func parse(bundle: Bundle, resource: String) throws -> Element {
         let yaml = try Goo.load(bundle: bundle, resource: resource)
-        return View(yaml)
+        return Element(yaml)
+    }
+    
+    static func root(_ yaml: Yaml) -> Element {
+        let screen = UIScreen.main.bounds
+        let transform = Transform(anchor: .fill, width: Double(screen.width), height: Double(screen.height))
+        return Element(yaml, transform: transform)
     }
     
     init(_ yaml: Yaml, transform: Transform? = nil) {
         id = yaml["id"].string
-        type = yaml["type"].string.flatMap { t in ViewType(rawValue: t) } ?? .view
         self.transform = transform ?? Transform(yaml)
         layout = Layout(yaml)
         
@@ -32,7 +38,7 @@ class View {
         
         children = []
         children = yaml["children"].arrayValue.map { y in
-            let child = View(y)
+            let child = Element(y)
             child.parent = self
             return child
         }
@@ -80,7 +86,12 @@ class View {
             }
         }
         
+        _view = view
         return view
+    }
+    
+    func export() -> UIView {
+        return export(within: CGRect(x: 0, y: 0, width: transform.width, height: transform.height))
     }
     
 }

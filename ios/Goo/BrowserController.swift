@@ -14,9 +14,8 @@ class BrowserController: UIViewController {
     
     override func loadView() {
         let yaml = try! Goo.load(resource: resource)
-        let transform = Transform(anchor: .fill)
-        let goo = View(yaml, transform: transform)
-        view = goo.export(within: UIScreen.main.bounds)
+        let element = Element.root(yaml)
+        view = element.export()
     }
 
     override func viewDidLoad() {

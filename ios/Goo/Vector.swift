@@ -1,7 +1,7 @@
 import Foundation
 import Yaml
 
-struct Vector: Hashable, Equatable, CustomStringConvertible {
+public struct Vector: Hashable, Equatable, CustomStringConvertible {
     let x: Double
     let y: Double
     
@@ -9,11 +9,11 @@ struct Vector: Hashable, Equatable, CustomStringConvertible {
     static let half = Vector(0.5, 0.5)
     static let one = Vector(1, 1)
     
-    var hashValue: Int {
+    public var hashValue: Int {
         return x.hashValue ^ y.hashValue &* 9719
     }
     
-    var description: String {
+    public var description: String {
         return "(\(x), \(y))"
     }
     
@@ -45,23 +45,23 @@ struct Vector: Hashable, Equatable, CustomStringConvertible {
     
 }
 
-func ==(left: Vector, right: Vector) -> Bool {
+public func ==(left: Vector, right: Vector) -> Bool {
     return left.x == right.x && left.y == right.y
 }
 
-func *(left: Vector, right: Vector) -> Vector {
+public func *(left: Vector, right: Vector) -> Vector {
     return Vector(left.x * right.x, left.y * right.y)
 }
 
-func *(left: Vector, right: Double) -> Vector {
+public func *(left: Vector, right: Double) -> Vector {
     return Vector(left.x * right, left.y * right)
 }
 
-func *(left: Double, right: Vector) -> Vector {
+public func *(left: Double, right: Vector) -> Vector {
     return Vector(left * right.x, left * right.y)
 }
 
-func *(left: Vector?, right: Double?) -> Vector? {
+public func *(left: Vector?, right: Double?) -> Vector? {
     if let left = left, let right = right {
         return left * right
     } else {
@@ -69,7 +69,7 @@ func *(left: Vector?, right: Double?) -> Vector? {
     }
 }
 
-func *(left: Double?, right: Vector?) -> Vector? {
+public func *(left: Double?, right: Vector?) -> Vector? {
     if let left = left, let right = right {
         return left * right
     } else {

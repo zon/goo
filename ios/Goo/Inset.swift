@@ -1,7 +1,7 @@
 import Foundation
 import Yaml
 
-struct Inset {
+public struct Inset {
     let left: Double
     let right: Double
     let top: Double
@@ -40,7 +40,7 @@ struct Inset {
     
 }
 
-func -(a: CGRect, b: Inset) -> CGRect {
+public func -(a: CGRect, b: Inset) -> CGRect {
     let left = CGFloat(b.left)
     let right = CGFloat(b.right)
     let top = CGFloat(b.top)

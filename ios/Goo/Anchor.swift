@@ -1,6 +1,6 @@
 import Foundation
 
-class Anchor : Bounds {
+public class Anchor : Bounds {
     
     static let topLeft = Anchor()
     static let topCenter = Anchor(minX: 0.5, maxX: 0.5)

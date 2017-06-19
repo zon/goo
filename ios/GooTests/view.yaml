@@ -1,8 +1,7 @@
 id: thing
 anchor: fill
 origin: center
-layout:
-    type: grid
+layout: grid
 left: 5
 right: 7
 top: 11

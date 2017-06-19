@@ -2,7 +2,7 @@ import Foundation
 import Yaml
 import UIKit
 
-class Transform {
+public class Transform {
     let anchor: Anchor
     let origin: Vector
     let left: Double
@@ -23,7 +23,7 @@ class Transform {
         height: Double = 0
     ) {
         self.anchor = anchor
-        self.origin = Anchor.defaultOrigins[anchor] ?? Anchor.originFallback
+        self.origin = origin ?? Anchor.defaultOrigins[anchor] ?? Anchor.originFallback
         self.left = left
         self.right = right
         self.top = top

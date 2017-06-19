@@ -1,15 +1,15 @@
 import Foundation
 import Yaml
 
-class Bounds: Hashable, Equatable, CustomStringConvertible {
+public class Bounds: Hashable, Equatable, CustomStringConvertible {
     let min: Vector
     let max: Vector
     
-    var hashValue: Int {
+    public var hashValue: Int {
         return min.hashValue ^ max.hashValue &* 9973
     }
     
-    var description: String {
+    public var description: String {
         return "Bounds(\(min.x), \(min.y), \(max.x), \(max.y))"
     }
     
@@ -32,10 +32,10 @@ class Bounds: Hashable, Equatable, CustomStringConvertible {
     
 }
 
-func ==(left: Bounds, right: Bounds) -> Bool {
+public func ==(left: Bounds, right: Bounds) -> Bool {
     return left.min == right.min && left.max == right.max
 }
 
-func *(left: Bounds, right: Vector) -> Bounds {
+public func *(left: Bounds, right: Vector) -> Bounds {
     return Bounds(min: left.min * right, max: left.max * right)
 }
