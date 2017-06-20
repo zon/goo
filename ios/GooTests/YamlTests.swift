@@ -1,5 +1,6 @@
 import XCTest
 import Yaml
+import Pods_Goo
 
 class YamlTests: BaseTestCase {
     
@@ -8,6 +9,22 @@ class YamlTests: BaseTestCase {
     override func setUp() {
         super.setUp()
         yaml = load(resource: "basic")
+    }
+    
+    func testArrayVector() {
+        equal(Vector(yaml["arrayVector"]), Vector(34, 56))
+    }
+    
+    func testDictVector() {
+        equal(Vector(yaml["dictVector"]), Vector(45, 67))
+    }
+    
+    func testDirection() {
+        equal(Vector.direction(yaml["direction"]), Vector.left)
+    }
+    
+    func testMissingVector() {
+        equal(Vector(yaml["no-vector"]), nil)
     }
     
     func testShortColor() {
@@ -20,10 +37,6 @@ class YamlTests: BaseTestCase {
     
     func testAlphaColor() {
         equal(yaml["alphaColor"].color?.hexString(), "#0000FF99")
-    }
-    
-    func testMissingVector() {
-        equal(Vector(yaml["no-vector"]), nil)
     }
     
 }

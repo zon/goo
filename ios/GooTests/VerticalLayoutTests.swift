@@ -8,7 +8,8 @@ class VerticalLayoutTests: BaseTestCase {
         let screen = UIScreen.main.bounds
         let yaml = load(resource: "vertical")
         let e = Element.root(yaml)
-        let r = e.export()
+        e.update()
+        let r = e.view!
         
         equal(r.frame.width, screen.width)
         equal(r.frame.height, screen.height)
@@ -32,9 +33,9 @@ class VerticalLayoutTests: BaseTestCase {
         equal(c.frame.height, 100)
         
         let d = r.subviews[3]
-        equal(d.frame.minX, 30)
-        equal(d.frame.minY, r.frame.height - 30 - d.frame.height)
-        equal(d.frame.width, r.frame.width - 60)
+        equal(d.frame.minX, 60)
+        equal(d.frame.minY, r.frame.height - 60 - d.frame.height)
+        equal(d.frame.width, r.frame.width - 120)
         equal(d.frame.height, 100)
         
     }

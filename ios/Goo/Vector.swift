@@ -8,6 +8,8 @@ public struct Vector: Hashable, Equatable, CustomStringConvertible {
     static let zero = Vector(0, 0)
     static let half = Vector(0.5, 0.5)
     static let one = Vector(1, 1)
+    static let left = Vector(1, 0)
+    static let up = Vector(0, 1)
     
     public var hashValue: Int {
         return x.hashValue ^ y.hashValue &* 9719
@@ -43,10 +45,31 @@ public struct Vector: Hashable, Equatable, CustomStringConvertible {
         }
     }
     
+    static func direction(_ yaml: Yaml) -> Vector {
+        switch yaml.string {
+        case "vertical"?:
+            return .up
+        case "horizontal"?:
+            return .left
+        case "both"?:
+            return .one
+        default:
+            return .zero
+        }
+    }
+    
 }
 
 public func ==(left: Vector, right: Vector) -> Bool {
     return left.x == right.x && left.y == right.y
+}
+
+public func +(left: Vector, right: Vector) -> Vector {
+    return Vector(left.x + right.x, left.y + right.y)
+}
+
+public func -(left: Vector, right: Vector) -> Vector {
+    return Vector(left.x - right.x, left.y - right.y)
 }
 
 public func *(left: Vector, right: Vector) -> Vector {

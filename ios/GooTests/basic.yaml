@@ -1,3 +1,6 @@
+arrayVector: [34, 56]
+dictVector: {x: 45, y: 67}
+direction: horizontal
 shortColor: f00
 mediumColor: 00ff00
 alphaColor: 0000ff99

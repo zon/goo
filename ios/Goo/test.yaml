@@ -1,29 +1,24 @@
-padding: 30
-spacing: 30
 background: fff
+padding:
+  top: 20
 children:
 
-  - top: 30
-    left: 30
-    right: 30
-    height: 100
-    background: f00
+  - layout: horizontal
+    distribute: horizontal
+    padding: 20
+    spacing: 20
+    height: 240
+    background: ffc
+    children:
 
-  - left: 30
-    right: 30
-    height: 100
-    background: 00f
+      - anchor: left-fill
+        right: 10
+        width: 200
+        weight: 0
+        background: e00
 
-  - anchor: center
-    width: 100
-    height: 100
-    background: 0f0
-    ignore-layout: true
+      - anchor: fill
+        background: 0c0
 
-  - anchor: bottom-fill
-    left: 30
-    right: 30
-    bottom: 30
-    height: 100
-    background: ff0
-    ignore-layout: true
+      - anchor: fill
+        background: 00e

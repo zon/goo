@@ -11,14 +11,26 @@
 		B6881F7EC5E2F1F675B7BB49 /* Pods_Goo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF95758AE2758E83AF51938 /* Pods_Goo.framework */; };
 		EC3A54211EE6F7D300935FE6 /* Goo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3A54201EE6F7D300935FE6 /* Goo.swift */; };
 		EC669E881EF8402A00C63226 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC669E871EF8402A00C63226 /* Alignment.swift */; };
-		EC669E8A1EF8441400C63226 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC669E871EF8402A00C63226 /* Alignment.swift */; };
 		EC669E8C1EF84BF700C63226 /* VerticalLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC669E8B1EF84BF700C63226 /* VerticalLayoutTests.swift */; };
 		EC669E8E1EF8519C00C63226 /* vertical.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EC669E8D1EF8519C00C63226 /* vertical.yaml */; };
+		EC669E921EF9754400C63226 /* YamlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F351EE71A7B00C3A72A /* YamlExtension.swift */; };
+		EC669E931EF9754400C63226 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F371EE71B4300C3A72A /* ArrayExtension.swift */; };
+		EC669E941EF9754400C63226 /* Goo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3A54201EE6F7D300935FE6 /* Goo.swift */; };
+		EC669E951EF9754400C63226 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD641EE6F9A600643659 /* Element.swift */; };
+		EC669E961EF9754400C63226 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD661EE6FA1500643659 /* Vector.swift */; };
+		EC669E971EF9754400C63226 /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD681EE6FA3400643659 /* Bounds.swift */; };
+		EC669E981EF9754400C63226 /* Inset.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD6A1EE6FA5500643659 /* Inset.swift */; };
+		EC669E991EF9754400C63226 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD6C1EE6FB3200643659 /* Layout.swift */; };
+		EC669E9A1EF9754400C63226 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD6E1EE7031300643659 /* Anchor.swift */; };
+		EC669E9B1EF9754400C63226 /* GooError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F4C1EE7365500C3A72A /* GooError.swift */; };
+		EC669E9C1EF9754400C63226 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112B21EE8476600B087BD /* Transform.swift */; };
+		EC669E9D1EF9754400C63226 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC669E871EF8402A00C63226 /* Alignment.swift */; };
+		EC669E9F1EF977C700C63226 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC669E9E1EF977C700C63226 /* CGPointExtension.swift */; };
+		EC669EA01EF97ACC00C63226 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC669E9E1EF977C700C63226 /* CGPointExtension.swift */; };
 		ECA112AD1EE7554F00B087BD /* YamlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112AC1EE7554F00B087BD /* YamlTests.swift */; };
 		ECA112AF1EE755C800B087BD /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112AE1EE755C800B087BD /* BaseTestCase.swift */; };
 		ECA112B11EE7595400B087BD /* basic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = ECA112B01EE7595400B087BD /* basic.yaml */; };
 		ECA112B31EE8476600B087BD /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112B21EE8476600B087BD /* Transform.swift */; };
-		ECA112B41EE84B3B00B087BD /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA112B21EE8476600B087BD /* Transform.swift */; };
 		ECA112B61EE876C200B087BD /* test.yaml in Resources */ = {isa = PBXBuildFile; fileRef = ECA112B51EE876C200B087BD /* test.yaml */; };
 		ECB12E671EE5DE13001D166D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB12E661EE5DE13001D166D /* AppDelegate.swift */; };
 		ECB12E691EE5DE13001D166D /* BrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB12E681EE5DE13001D166D /* BrowserController.swift */; };
@@ -35,16 +47,6 @@
 		ECE72F491EE7318600C3A72A /* ElementParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F481EE7318600C3A72A /* ElementParseTests.swift */; };
 		ECE72F4B1EE7344300C3A72A /* view.yaml in Resources */ = {isa = PBXBuildFile; fileRef = ECE72F4A1EE7344300C3A72A /* view.yaml */; };
 		ECE72F4D1EE7365500C3A72A /* GooError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F4C1EE7365500C3A72A /* GooError.swift */; };
-		ECE72F4E1EE739B000C3A72A /* Goo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3A54201EE6F7D300935FE6 /* Goo.swift */; };
-		ECE72F4F1EE739B000C3A72A /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD641EE6F9A600643659 /* Element.swift */; };
-		ECE72F501EE739B000C3A72A /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD661EE6FA1500643659 /* Vector.swift */; };
-		ECE72F511EE739B000C3A72A /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD681EE6FA3400643659 /* Bounds.swift */; };
-		ECE72F521EE739B000C3A72A /* Inset.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD6A1EE6FA5500643659 /* Inset.swift */; };
-		ECE72F531EE739B000C3A72A /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD6C1EE6FB3200643659 /* Layout.swift */; };
-		ECE72F541EE739B000C3A72A /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5AD6E1EE7031300643659 /* Anchor.swift */; };
-		ECE72F551EE739B000C3A72A /* GooError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F4C1EE7365500C3A72A /* GooError.swift */; };
-		ECE72F561EE739B400C3A72A /* YamlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F351EE71A7B00C3A72A /* YamlExtension.swift */; };
-		ECE72F571EE739B400C3A72A /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE72F371EE71B4300C3A72A /* ArrayExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,7 @@
 		EC669E871EF8402A00C63226 /* Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
 		EC669E8B1EF84BF700C63226 /* VerticalLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalLayoutTests.swift; sourceTree = "<group>"; };
 		EC669E8D1EF8519C00C63226 /* vertical.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertical.yaml; sourceTree = "<group>"; };
+		EC669E9E1EF977C700C63226 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		ECA112AC1EE7554F00B087BD /* YamlTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamlTests.swift; sourceTree = "<group>"; };
 		ECA112AE1EE755C800B087BD /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		ECA112B01EE7595400B087BD /* basic.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic.yaml; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 			children = (
 				ECE72F351EE71A7B00C3A72A /* YamlExtension.swift */,
 				ECE72F371EE71B4300C3A72A /* ArrayExtension.swift */,
+				EC669E9E1EF977C700C63226 /* CGPointExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -415,6 +419,7 @@
 			files = (
 				ECC5AD691EE6FA3400643659 /* Bounds.swift in Sources */,
 				ECC5AD6B1EE6FA5500643659 /* Inset.swift in Sources */,
+				EC669E9F1EF977C700C63226 /* CGPointExtension.swift in Sources */,
 				ECC5AD651EE6F9A600643659 /* Element.swift in Sources */,
 				EC669E881EF8402A00C63226 /* Alignment.swift in Sources */,
 				ECB12E691EE5DE13001D166D /* BrowserController.swift in Sources */,
@@ -435,20 +440,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECE72F491EE7318600C3A72A /* ElementParseTests.swift in Sources */,
-				ECE72F511EE739B000C3A72A /* Bounds.swift in Sources */,
-				ECE72F541EE739B000C3A72A /* Anchor.swift in Sources */,
-				ECE72F4E1EE739B000C3A72A /* Goo.swift in Sources */,
+				EC669E921EF9754400C63226 /* YamlExtension.swift in Sources */,
+				EC669E9B1EF9754400C63226 /* GooError.swift in Sources */,
+				EC669E951EF9754400C63226 /* Element.swift in Sources */,
+				EC669E941EF9754400C63226 /* Goo.swift in Sources */,
 				ECA112AD1EE7554F00B087BD /* YamlTests.swift in Sources */,
-				ECE72F521EE739B000C3A72A /* Inset.swift in Sources */,
-				ECE72F551EE739B000C3A72A /* GooError.swift in Sources */,
-				ECE72F561EE739B400C3A72A /* YamlExtension.swift in Sources */,
-				ECE72F531EE739B000C3A72A /* Layout.swift in Sources */,
-				ECE72F501EE739B000C3A72A /* Vector.swift in Sources */,
-				EC669E8A1EF8441400C63226 /* Alignment.swift in Sources */,
-				ECA112B41EE84B3B00B087BD /* Transform.swift in Sources */,
-				ECE72F4F1EE739B000C3A72A /* Element.swift in Sources */,
+				EC669E991EF9754400C63226 /* Layout.swift in Sources */,
+				EC669E9C1EF9754400C63226 /* Transform.swift in Sources */,
+				EC669E981EF9754400C63226 /* Inset.swift in Sources */,
+				EC669E9D1EF9754400C63226 /* Alignment.swift in Sources */,
+				EC669EA01EF97ACC00C63226 /* CGPointExtension.swift in Sources */,
+				EC669E931EF9754400C63226 /* ArrayExtension.swift in Sources */,
+				EC669E971EF9754400C63226 /* Bounds.swift in Sources */,
 				ECA112AF1EE755C800B087BD /* BaseTestCase.swift in Sources */,
-				ECE72F571EE739B400C3A72A /* ArrayExtension.swift in Sources */,
+				EC669E9A1EF9754400C63226 /* Anchor.swift in Sources */,
+				EC669E961EF9754400C63226 /* Vector.swift in Sources */,
 				EC669E8C1EF84BF700C63226 /* VerticalLayoutTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

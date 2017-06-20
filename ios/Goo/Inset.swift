@@ -33,6 +33,13 @@ public struct Inset {
             self.right = right ?? 0
             self.top = top ?? 0
             self.bottom = bottom ?? 0
+            
+        } else if let vector = Vector(yaml) {
+            self.left = vector.x
+            self.right = vector.x
+            self.top = vector.y
+            self.bottom = vector.y
+            
         } else {
             return nil
         }
