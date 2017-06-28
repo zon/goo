@@ -47,7 +47,7 @@ class Transform(
 
     constructor(size: Vector) : this(width = size.x, height = size.y)
 
-    fun export(within: Rect): Inset {
+    fun export(within: Rect): Rect {
         var x = 0f
         var y = 0f
         var w = 0f
@@ -73,13 +73,11 @@ class Transform(
             h = bounds.max.y - bounds.min.y - top - bottom
         }
 
-        val left = within.origin.x + x
-        val top = within.origin.y + y
-        return Inset(
-            left = left,
-            right = within.size.x - left - w,
-            top = top,
-            bottom = within.size.y - top - h
+        return Rect(
+            x = within.origin.x + x,
+            y = within.origin.y + y,
+            width = w,
+            height = h
         )
     }
 

@@ -1,11 +1,11 @@
 package org.haralovich.goo
 
 import android.content.Context
-import android.graphics.Color
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.RelativeLayout.LayoutParams
 import com.fasterxml.jackson.databind.JsonNode
 
 class Element(
@@ -56,16 +56,17 @@ class Element(
     fun update(within: Rect) {
 
         val frame = transform.export(within)
-        view.layout(
-            frame.left.toInt(),
-            frame.top.toInt(),
-            frame.right.toInt(),
-            frame.bottom.toInt()
-        )
+        view.x = frame.origin.x
+        view.y = frame.origin.y
+        view.layoutParams = LayoutParams(frame.size.x.toInt(), frame.size.y.toInt())
 
         Log.d(TAG, "FRAME "+ frame)
 
-        val padded = Rect(Vector.zero, (within + frame).size) + layout.padding
+        view.setBackgroundColor(background ?: 0)
+
+        Log.d(TAG, "BACKGROUND " + background)
+
+        val padded = Rect(Vector.zero, frame.size) + layout.padding
         if (layout.type != LayoutType.RELATIVE) {
             val included = children.filter { !it.layout.ignore }
 
@@ -111,12 +112,6 @@ class Element(
                 child.update(padded)
             }
         }
-
-//        view.setBackgroundColor(background ?: 0)
-
-        view.setBackgroundColor(Color.MAGENTA)
-
-        Log.d(TAG, "BACKGROUND "+ background)
 
     }
 

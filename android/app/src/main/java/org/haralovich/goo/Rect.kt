@@ -25,6 +25,10 @@ class Rect(var origin: Vector, var size: Vector) {
         height: Float = 0f
     ) : this (Vector(x, y), Vector(width, height))
 
+    override fun toString(): String {
+        return "Rect(${origin.x}, ${origin.y}, ${size.x}, ${size.y})"
+    }
+
     operator fun plus(inset: Inset): Rect {
         val lt = Vector(inset.left, inset.top)
         val rb = Vector(inset.right, inset.bottom)
