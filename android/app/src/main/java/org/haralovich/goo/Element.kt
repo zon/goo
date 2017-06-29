@@ -60,11 +60,7 @@ class Element(
         view.y = frame.origin.y
         view.layoutParams = LayoutParams(frame.size.x.toInt(), frame.size.y.toInt())
 
-        Log.d(TAG, "FRAME "+ frame)
-
         view.setBackgroundColor(background ?: 0)
-
-        Log.d(TAG, "BACKGROUND " + background)
 
         val padded = Rect(Vector.zero, frame.size) + layout.padding
         if (layout.type != LayoutType.RELATIVE) {
