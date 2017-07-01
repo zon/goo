@@ -1,28 +1,28 @@
 package org.haralovich.goo
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import android.widget.RelativeLayout.LayoutParams
 import com.fasterxml.jackson.databind.JsonNode
 
 class Element(
-    context: Context,
-    val id: String?,
-    val transform: Transform,
-    val layout: Layout,
-    val background: Int?,
-    var children: Set<Element>
+        context: Context,
+        val id: String?,
+        val type: LayoutType,
+        val self: SelfProps,
+        val child: ChildProps<ViewGroup.LayoutParams>,
+        val background: Int?,
+        var children: Set<Element> = emptySet()
 ) {
-    val view: View = RelativeLayout(context)
+    val view: View
 
     init {
-        if (view is ViewGroup) {
-            for (child in children) {
-                view.addView(child.view)
-            }
+        view = when (type) {
+            LayoutType.RELATIVE -> RelativeLayout(context)
+            LayoutType.VERTICAL -> LinearLayout(context)
+            LayoutType.HORIZONTAL -> LinearLayout(context)
         }
     }
 
@@ -30,82 +30,73 @@ class Element(
 
         val TAG = "Element"
 
-        fun parse(context: Context, json: JsonNode, transform: Transform? = null): Element {
-            return Element(
+        fun parse(context: Context, json: JsonNode, parent: Element? = null): Element {
+
+            val type = LayoutType.parse(json.path("layout")) ?: LayoutType.RELATIVE
+
+            val self: SelfProps = when (type) {
+                LayoutType.RELATIVE -> SelfProps.parse(json)
+                LayoutType.VERTICAL -> LinearParent.parse(LinearDirection.VERTICAL, json)
+                LayoutType.HORIZONTAL -> LinearParent.parse(LinearDirection.HORIZONTAL, json)
+            }
+
+            val child = when(parent?.type) {
+                LayoutType.RELATIVE -> RelativeChild.parse(json)
+                LayoutType.VERTICAL -> LinearChild.parse(json)
+                LayoutType.HORIZONTAL -> LinearChild.parse(json)
+                else -> RelativeChild.parse(json)
+            }
+
+            val element = Element(
                 context = context,
                 id = json.path("id").textOption,
-                transform = transform ?: Transform.parse(json),
-                layout = Layout.parse(json),
-                background = json.path("background").colorOption,
-                children = json.path("children").map { Element.parse(context, it) }.toSet()
+                type = type,
+                self = self,
+                child = child,
+                background = json.path("background").colorOption
             )
+            parseChildren(element, json)
+            return element
         }
 
         fun root(context: Context, json: JsonNode): Element {
-            return parse(context, json, Transform(anchor = Anchor.FILL))
+            val element = Element(
+                context,
+                json.path("id").textOption,
+                LayoutType.parse(json.path("layout")) ?: LayoutType.RELATIVE,
+                SelfProps.parse(json),
+                RelativeChild.parse(json, fallback = Anchor.FILL),
+                json.path("background").colorOption
+            )
+            parseChildren(element, json)
+            return element
+        }
+
+        private fun parseChildren(parent: Element, json: JsonNode) {
+            parent.children = json
+                .path("children")
+                .map { Element.parse(parent.view.context, it, parent) }
+                .toSet()
+            if (parent.view is ViewGroup) {
+                for (child in parent.children) {
+                    parent.view.addView(child.view)
+                }
+            }
         }
 
     }
 
-    fun update(context: Context, inset: Inset = Inset.zero) {
-//        val metrics = context.resources.displayMetrics
-        
-        val params = transform.export(context, inset)
+    fun update(inset: Inset = Inset.zero) {
+        val params = child.export(view.context, inset)
+
+        self.update(view)
 
         view.layoutParams = params
         view.setBackgroundColor(background ?: 0)
 
         for (child in children) {
-            child.update(context, layout.padding)
+            child.update(self.padding)
         }
-
-//        val padded = Rect(Vector.zero, frame.size) + layout.padding
-//        if (layout.type != LayoutType.RELATIVE) {
-//            val included = children.filter { !it.layout.ignore }
-//
-//            var delta = Vector.zero
-//            var weight = 0f
-//            if (layout.distribute != Vector.zero) {
-//                val size = Vector(
-//                    included.map { it.transform.width }.reduce { a, b -> a + b },
-//                    included.map { it.transform.height }.reduce { a, b -> a + b }
-//                )
-//                val spacing = layout.spacing * maxOf(included.count() - 1, 0)
-//                delta = padded.size - spacing - size
-//                weight = included.map { it.layout.weight }.reduce { a, b -> a + b }
-//            }
-//
-//            val position = Vector.zero
-//            for (child in included) {
-//                val cell = Rect(padded.origin + position, padded.size)
-//
-//                if (layout.distribute.x != 0f && layout.type == LayoutType.HORIZONTAL) {
-//                    cell.size.x = child.transform.width + delta.x * (child.layout.weight / weight)
-//
-//                } else if (layout.distribute.y != 0f && layout.type == LayoutType.VERTICAL) {
-//                    cell.size.y = child.transform.height + delta.y * (child.layout.weight / weight)
-//                }
-//
-//                child.update(context, cell)
-//
-//                if (layout.type == LayoutType.HORIZONTAL) {
-//                    position.x = cell.origin.x + layout.spacing.x - layout.padding.left
-//
-//                } else if (layout.type == LayoutType.VERTICAL) {
-//                    position.y = cell.origin.y + layout.spacing.y - layout.padding.top
-//                }
-//            }
-//
-//            for (child in children.filter { it.layout.ignore }) {
-//                child.update(context, padded)
-//            }
-//
-//        } else {
-//            for (child in children) {
-//                child.update(context, padded)
-//            }
-//        }
-
     }
 
 }

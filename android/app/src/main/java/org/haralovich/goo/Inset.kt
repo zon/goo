@@ -22,7 +22,10 @@ class Inset(
                 return Inset(left ?: 0f, right ?: 0f, top ?: 0f, bottom ?: 0f)
 
             } else {
-                return Vector.parse(json)?.let { Inset(it) }
+                return (
+                    Vector.parse(json)?.let { Inset(it) } ?:
+                    json.floatOption?.let { Inset(it) }
+                )
             }
         }
 

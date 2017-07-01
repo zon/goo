@@ -4,44 +4,42 @@ import android.content.Context
 import android.widget.RelativeLayout
 import com.fasterxml.jackson.databind.JsonNode
 
-class Transform(
-    val anchor: Anchor = Anchor.fallback,
-    val left: Float = 0f,
-    val right: Float = 0f,
-    val top: Float = 0f,
-    val bottom: Float = 0f,
-    val width: Float = 0f,
-    val height: Float = 0f
-) {
+class RelativeChild(
+    val anchor: Anchor,
+    left: Float,
+    right: Float,
+    top: Float,
+    bottom: Float,
+    width: Float?,
+    height: Float?
+) : ChildProps<RelativeLayout.LayoutParams>(left, right, top, bottom, width, height) {
 
     companion object {
 
-        fun parse(json: JsonNode): Transform {
-            return Transform(
-                Anchor.parse(json.path("anchor")) ?: Anchor.fallback,
-                json.path("left").floatOption ?: json.path("x").floatValue(),
+        fun parse(json: JsonNode, fallback: Anchor = Anchor.TOP_FILL): RelativeChild {
+            return RelativeChild(
+                Anchor.parse(json.path("anchor")) ?: fallback,
+                json.path("left").floatValue(),
                 json.path("right").floatValue(),
-                json.path("top").floatOption ?: json.path("y").floatValue(),
+                json.path("top").floatValue(),
                 json.path("bottom").floatValue(),
-                json.path("width").floatValue(),
-                json.path("height").floatValue()
+                json.path("width").floatOption,
+                json.path("height").floatOption
             )
         }
 
     }
 
-    constructor(size: Vector) : this(width = size.x, height = size.y)
-
-    fun export(context: Context, inset: Inset): RelativeLayout.LayoutParams {
+    override fun export(context: Context, inset: Inset): RelativeLayout.LayoutParams {
         val density = context.resources.displayMetrics.density
-        val w = (width * density).toInt()
-        val h = (height * density).toInt()
+        val fit = RelativeLayout.LayoutParams.WRAP_CONTENT
+        val fill = RelativeLayout.LayoutParams.MATCH_PARENT
+        val w = width?.let { (it * density).toInt() } ?: fit
+        val h = height?.let { (it * density).toInt() } ?: fit
         val l = ((left + inset.left) * density).toInt()
         val r = ((right + inset.right) * density).toInt()
         val t = ((top + inset.top) * density).toInt()
         val b = ((bottom + inset.bottom) * density).toInt()
-        val fill = RelativeLayout.LayoutParams.MATCH_PARENT
-//        val fit = RelativeLayout.LayoutParams.WRAP_CONTENT
 
         val params = RelativeLayout.LayoutParams(w, h)
 
