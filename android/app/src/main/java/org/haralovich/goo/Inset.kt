@@ -32,6 +32,10 @@ class Inset(
 
     constructor(edge: Vector) : this(edge.x, edge.x, edge.y, edge.y)
 
+    operator fun plus(other: Inset): Inset {
+        return Inset(left + other.left, right + other.right, top + other.top, bottom + other.bottom)
+    }
+
     override fun toString(): String {
         return "Inset($left, $top, $right, $bottom)"
     }

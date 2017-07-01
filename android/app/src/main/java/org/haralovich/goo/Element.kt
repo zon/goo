@@ -42,77 +42,70 @@ class Element(
         }
 
         fun root(context: Context, json: JsonNode): Element {
-            val metrics = context.resources.displayMetrics
-            val transform = Transform(
-                anchor = Anchor.fill,
-                width = metrics.widthPixels / metrics.density,
-                height = metrics.heightPixels / metrics.density
-            )
-            return parse(context, json, transform)
+            return parse(context, json, Transform(anchor = Anchor.FILL))
         }
 
     }
 
-    fun update(within: Rect) {
+    fun update(context: Context, inset: Inset = Inset.zero) {
+//        val metrics = context.resources.displayMetrics
+        
+        val params = transform.export(context, inset)
 
-        val frame = transform.export(within)
-        view.x = frame.origin.x
-        view.y = frame.origin.y
-        view.layoutParams = LayoutParams(frame.size.x.toInt(), frame.size.y.toInt())
-
+        view.layoutParams = params
         view.setBackgroundColor(background ?: 0)
 
-        val padded = Rect(Vector.zero, frame.size) + layout.padding
-        if (layout.type != LayoutType.RELATIVE) {
-            val included = children.filter { !it.layout.ignore }
-
-            var delta = Vector.zero
-            var weight = 0f
-            if (layout.distribute != Vector.zero) {
-                val size = Vector(
-                    included.map { it.transform.width }.reduce { a, b -> a + b },
-                    included.map { it.transform.height }.reduce { a, b -> a + b }
-                )
-                val spacing = layout.spacing * maxOf(included.count() - 1, 0)
-                delta = padded.size - spacing - size
-                weight = included.map { it.layout.weight }.reduce { a, b -> a + b }
-            }
-
-            val position = Vector.zero
-            for (child in included) {
-                val cell = Rect(padded.origin + position, padded.size)
-
-                if (layout.distribute.x != 0f && layout.type == LayoutType.HORIZONTAL) {
-                    cell.size.x = child.transform.width + delta.x * (child.layout.weight / weight)
-
-                } else if (layout.distribute.y != 0f && layout.type == LayoutType.VERTICAL) {
-                    cell.size.y = child.transform.height + delta.y * (child.layout.weight / weight)
-                }
-
-                child.update(cell)
-
-                if (layout.type == LayoutType.HORIZONTAL) {
-                    position.x = cell.origin.x + layout.spacing.x - layout.padding.left
-
-                } else if (layout.type == LayoutType.VERTICAL) {
-                    position.y = cell.origin.y + layout.spacing.y - layout.padding.top
-                }
-            }
-
-            for (child in children.filter { it.layout.ignore }) {
-                child.update(padded)
-            }
-
-        } else {
-            for (child in children) {
-                child.update(padded)
-            }
+        for (child in children) {
+            child.update(context, layout.padding)
         }
 
-    }
+//        val padded = Rect(Vector.zero, frame.size) + layout.padding
+//        if (layout.type != LayoutType.RELATIVE) {
+//            val included = children.filter { !it.layout.ignore }
+//
+//            var delta = Vector.zero
+//            var weight = 0f
+//            if (layout.distribute != Vector.zero) {
+//                val size = Vector(
+//                    included.map { it.transform.width }.reduce { a, b -> a + b },
+//                    included.map { it.transform.height }.reduce { a, b -> a + b }
+//                )
+//                val spacing = layout.spacing * maxOf(included.count() - 1, 0)
+//                delta = padded.size - spacing - size
+//                weight = included.map { it.layout.weight }.reduce { a, b -> a + b }
+//            }
+//
+//            val position = Vector.zero
+//            for (child in included) {
+//                val cell = Rect(padded.origin + position, padded.size)
+//
+//                if (layout.distribute.x != 0f && layout.type == LayoutType.HORIZONTAL) {
+//                    cell.size.x = child.transform.width + delta.x * (child.layout.weight / weight)
+//
+//                } else if (layout.distribute.y != 0f && layout.type == LayoutType.VERTICAL) {
+//                    cell.size.y = child.transform.height + delta.y * (child.layout.weight / weight)
+//                }
+//
+//                child.update(context, cell)
+//
+//                if (layout.type == LayoutType.HORIZONTAL) {
+//                    position.x = cell.origin.x + layout.spacing.x - layout.padding.left
+//
+//                } else if (layout.type == LayoutType.VERTICAL) {
+//                    position.y = cell.origin.y + layout.spacing.y - layout.padding.top
+//                }
+//            }
+//
+//            for (child in children.filter { it.layout.ignore }) {
+//                child.update(context, padded)
+//            }
+//
+//        } else {
+//            for (child in children) {
+//                child.update(context, padded)
+//            }
+//        }
 
-    fun update() {
-        update(Rect(Vector.zero, Vector(transform.width, transform.height)))
     }
 
 }
