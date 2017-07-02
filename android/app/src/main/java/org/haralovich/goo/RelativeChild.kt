@@ -5,27 +5,23 @@ import android.widget.RelativeLayout
 import com.fasterxml.jackson.databind.JsonNode
 
 class RelativeChild(
-    val anchor: Anchor,
-    left: Float,
-    right: Float,
-    top: Float,
-    bottom: Float,
-    width: Float?,
-    height: Float?
+    val anchor: Anchor = anchorFallback,
+    left: Float = 0f,
+    right: Float = 0f,
+    top: Float = 0f,
+    bottom: Float = 0f,
+    width: Measure? = null,
+    height: Measure? = null
 ) : ChildProps<RelativeLayout.LayoutParams>(left, right, top, bottom, width, height) {
 
     companion object {
 
-        fun parse(json: JsonNode, fallback: Anchor = Anchor.TOP_FILL): RelativeChild {
-            return RelativeChild(
-                Anchor.parse(json.path("anchor")) ?: fallback,
-                json.path("left").floatValue(),
-                json.path("right").floatValue(),
-                json.path("top").floatValue(),
-                json.path("bottom").floatValue(),
-                json.path("width").floatOption,
-                json.path("height").floatOption
-            )
+        val anchorFallback = Anchor.TOP_FILL
+
+        fun parse(json: JsonNode, fallback: Anchor = anchorFallback): RelativeChild {
+            val props = RelativeChild(anchor = Anchor.parse(json.path("anchor")) ?: fallback)
+            props.parse(json)
+            return props
         }
 
     }
@@ -34,8 +30,8 @@ class RelativeChild(
         val density = context.resources.displayMetrics.density
         val fit = RelativeLayout.LayoutParams.WRAP_CONTENT
         val fill = RelativeLayout.LayoutParams.MATCH_PARENT
-        val w = width?.let { (it * density).toInt() } ?: fit
-        val h = height?.let { (it * density).toInt() } ?: fit
+        val w = width?.let { it.toValue(context) } ?: fit
+        val h = height?.let { it.toValue(context) } ?: fit
         val l = (left * density).toInt()
         val r = (right * density).toInt()
         val t = (top * density).toInt()

@@ -6,29 +6,28 @@ import android.widget.LinearLayout
 import com.fasterxml.jackson.databind.JsonNode
 
 class LinearChild(
-    left: Float,
-    right: Float,
-    top: Float,
-    bottom: Float,
-    width: Float?,
-    height: Float?,
-    val alignment: Alignment,
-    val weight: Float
+    left: Float = 0f,
+    right: Float = 0f,
+    top: Float = 0f,
+    bottom: Float = 0f,
+    width: Measure? = null,
+    height: Measure? = null,
+    var alignment: Alignment = alignmentFallback,
+    var weight: Float = weightFallback
 ) : ChildProps<LinearLayout.LayoutParams>(left, right, top, bottom, width, height) {
 
     companion object {
 
+        val alignmentFallback = Alignment.CENTER
+        val weightFallback = 1f
+
         fun parse(json: JsonNode): LinearChild {
-            return LinearChild(
-                json.path("left").floatValue(),
-                json.path("right").floatValue(),
-                json.path("top").floatValue(),
-                json.path("bottom").floatValue(),
-                json.path("width").floatOption,
-                json.path("height").floatOption,
-                Alignment.parse(json.path("alignment")) ?: Alignment.CENTER,
-                json.path("weight").floatOption ?: 1f
+            val props = LinearChild(
+                alignment = Alignment.parse(json.path("alignment")) ?: alignmentFallback,
+                weight = json.path("weight").floatOption ?: weightFallback
             )
+            props.parse(json)
+            return props
         }
 
     }
@@ -36,8 +35,8 @@ class LinearChild(
     override fun export(context: Context): LinearLayout.LayoutParams {
         val density = context.resources.displayMetrics.density
         val fit = LinearLayout.LayoutParams.WRAP_CONTENT
-        val w = width?.let { (it * density).toInt() } ?: fit
-        val h = height?.let { (it * density).toInt() } ?: fit
+        val w = width?.let { it.toValue(context) } ?: fit
+        val h = height?.let { it.toValue(context) } ?: fit
         val params = LinearLayout.LayoutParams(w, h)
         params.leftMargin = (left * density).toInt()
         params.rightMargin = (right * density).toInt()

@@ -10,11 +10,11 @@ children:
     background: ffc
     children:
 
-      - height: 200
+      - height: fill
         background: e00
 
-      - height: 200
+      - height: fill
         background: 0c0
 
-      - height: 200
+      - height: fill
         background: 00e
