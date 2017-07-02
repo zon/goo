@@ -86,16 +86,15 @@ class Element(
 
     }
 
-    fun update(inset: Inset = Inset.zero) {
-        val params = child.export(view.context, inset)
-
+    fun update() {
         self.update(view)
 
-        view.layoutParams = params
         view.setBackgroundColor(background ?: 0)
 
+        view.layoutParams = child.export(view.context)
+
         for (child in children) {
-            child.update(self.padding)
+            child.update()
         }
     }
 

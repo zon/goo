@@ -12,6 +12,6 @@ abstract class ChildProps<out P: ViewGroup.LayoutParams>(
     val height: Float?
 ) {
 
-    abstract fun export(context: Context, inset: Inset): P
+    abstract fun export(context: Context): P
 
 }

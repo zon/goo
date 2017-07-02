@@ -24,6 +24,7 @@ class LinearParent(val direction: LinearDirection, val spacing: Float, padding: 
     }
 
     override fun update(view: View) {
+        super.update(view)
         if (view is LinearLayout) {
             view.orientation = when (direction) {
                 LinearDirection.VERTICAL -> LinearLayout.VERTICAL

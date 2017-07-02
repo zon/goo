@@ -30,16 +30,16 @@ class RelativeChild(
 
     }
 
-    override fun export(context: Context, inset: Inset): RelativeLayout.LayoutParams {
+    override fun export(context: Context): RelativeLayout.LayoutParams {
         val density = context.resources.displayMetrics.density
         val fit = RelativeLayout.LayoutParams.WRAP_CONTENT
         val fill = RelativeLayout.LayoutParams.MATCH_PARENT
         val w = width?.let { (it * density).toInt() } ?: fit
         val h = height?.let { (it * density).toInt() } ?: fit
-        val l = ((left + inset.left) * density).toInt()
-        val r = ((right + inset.right) * density).toInt()
-        val t = ((top + inset.top) * density).toInt()
-        val b = ((bottom + inset.bottom) * density).toInt()
+        val l = (left * density).toInt()
+        val r = (right * density).toInt()
+        val t = (top * density).toInt()
+        val b = (bottom * density).toInt()
 
         val params = RelativeLayout.LayoutParams(w, h)
 

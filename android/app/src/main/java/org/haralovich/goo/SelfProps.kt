@@ -13,6 +13,9 @@ open class SelfProps(val padding: Inset) {
 
     }
 
-    open fun update(view: View) {}
+    open fun update(view: View) {
+        val p = padding * view.context.resources.displayMetrics.density
+        view.setPadding(p.left.toInt(), p.top.toInt(), p.right.toInt(), p.bottom.toInt())
+    }
 
 }

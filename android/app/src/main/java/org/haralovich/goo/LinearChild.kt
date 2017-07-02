@@ -33,16 +33,16 @@ class LinearChild(
 
     }
 
-    override fun export(context: Context, inset: Inset): LinearLayout.LayoutParams {
+    override fun export(context: Context): LinearLayout.LayoutParams {
         val density = context.resources.displayMetrics.density
         val fit = LinearLayout.LayoutParams.WRAP_CONTENT
         val w = width?.let { (it * density).toInt() } ?: fit
         val h = height?.let { (it * density).toInt() } ?: fit
         val params = LinearLayout.LayoutParams(w, h)
-        params.leftMargin = ((left + inset.left) * density).toInt()
-        params.rightMargin = ((right + inset.right) * density).toInt()
-        params.topMargin = ((top + inset.top) * density).toInt()
-        params.bottomMargin = ((bottom + inset.bottom) * density).toInt()
+        params.leftMargin = (left * density).toInt()
+        params.rightMargin = (right * density).toInt()
+        params.topMargin = (top * density).toInt()
+        params.bottomMargin = (bottom * density).toInt()
         params.gravity = when (alignment) {
             Alignment.TOP_LEFT -> Gravity.TOP and Gravity.LEFT
             Alignment.TOP_CENTER -> Gravity.TOP and Gravity.CENTER_HORIZONTAL

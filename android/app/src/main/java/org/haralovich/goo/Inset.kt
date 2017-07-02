@@ -39,6 +39,10 @@ class Inset(
         return Inset(left + other.left, right + other.right, top + other.top, bottom + other.bottom)
     }
 
+    operator fun times(other: Float): Inset {
+        return Inset(left * other, right * other, top * other, bottom * other)
+    }
+
     override fun toString(): String {
         return "Inset($left, $top, $right, $bottom)"
     }
