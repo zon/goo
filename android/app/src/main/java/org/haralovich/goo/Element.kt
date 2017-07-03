@@ -3,27 +3,21 @@ package org.haralovich.goo
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import com.fasterxml.jackson.databind.JsonNode
 
 class Element(
         context: Context,
         val id: String?,
-        val type: LayoutType,
-        val self: SelfProps,
-        val child: ChildProps<ViewGroup.LayoutParams>,
-        val background: Int?,
+        val type: ViewType,
+        val self: SelfLayout,
+        val child: ChildLayout<ViewGroup.LayoutParams>,
+        var background: Int?,
         var children: Set<Element> = emptySet()
 ) {
     val view: View
 
     init {
-        view = when (type) {
-            LayoutType.RELATIVE -> RelativeLayout(context)
-            LayoutType.VERTICAL -> LinearLayout(context)
-            LayoutType.HORIZONTAL -> LinearLayout(context)
-        }
+        view = type.export(context)
     }
 
     companion object {
@@ -32,18 +26,19 @@ class Element(
 
         fun parse(context: Context, json: JsonNode, parent: Element? = null): Element {
 
-            val type = LayoutType.parse(json.path("layout")) ?: LayoutType.RELATIVE
+            val type = ViewType.parse(json.path("type")) ?: ViewType.RELATIVE
 
-            val self: SelfProps = when (type) {
-                LayoutType.RELATIVE -> SelfProps.parse(json)
-                LayoutType.VERTICAL -> LinearParent.parse(LinearDirection.VERTICAL, json)
-                LayoutType.HORIZONTAL -> LinearParent.parse(LinearDirection.HORIZONTAL, json)
+            val self: SelfLayout = when (type) {
+                ViewType.RELATIVE -> SelfLayout.parse(json)
+                ViewType.VERTICAL -> LinearSelf.parse(LinearDirection.VERTICAL, json)
+                ViewType.HORIZONTAL -> LinearSelf.parse(LinearDirection.HORIZONTAL, json)
+                ViewType.LABEL -> LabelSelf.parse(json)
             }
 
             val child = when(parent?.type) {
-                LayoutType.RELATIVE -> RelativeChild.parse(json)
-                LayoutType.VERTICAL -> LinearChild.parse(json)
-                LayoutType.HORIZONTAL -> LinearChild.parse(json)
+                ViewType.RELATIVE -> RelativeChild.parse(json)
+                ViewType.VERTICAL -> LinearChild.parse(json)
+                ViewType.HORIZONTAL -> LinearChild.parse(json)
                 else -> RelativeChild.parse(json)
             }
 
@@ -63,8 +58,8 @@ class Element(
             val element = Element(
                 context,
                 json.path("id").textOption,
-                LayoutType.parse(json.path("layout")) ?: LayoutType.RELATIVE,
-                SelfProps.parse(json),
+                ViewType.parse(json.path("layout")) ?: ViewType.RELATIVE,
+                SelfLayout.parse(json),
                 RelativeChild.parse(json, fallback = Anchor.FILL),
                 json.path("background").colorOption
             )
@@ -88,6 +83,8 @@ class Element(
 
     fun update() {
         self.update(view)
+
+        View.generateViewId()
 
         view.setBackgroundColor(background ?: 0)
 

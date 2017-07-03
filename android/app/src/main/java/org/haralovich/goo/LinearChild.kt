@@ -14,7 +14,7 @@ class LinearChild(
     height: Measure? = null,
     var alignment: Alignment = alignmentFallback,
     var weight: Float = weightFallback
-) : ChildProps<LinearLayout.LayoutParams>(left, right, top, bottom, width, height) {
+) : ChildLayout<LinearLayout.LayoutParams>(left, right, top, bottom, width, height) {
 
     companion object {
 
@@ -42,17 +42,7 @@ class LinearChild(
         params.rightMargin = (right * density).toInt()
         params.topMargin = (top * density).toInt()
         params.bottomMargin = (bottom * density).toInt()
-        params.gravity = when (alignment) {
-            Alignment.TOP_LEFT -> Gravity.TOP and Gravity.LEFT
-            Alignment.TOP_CENTER -> Gravity.TOP and Gravity.CENTER_HORIZONTAL
-            Alignment.TOP_RIGHT -> Gravity.TOP and Gravity.RIGHT
-            Alignment.CENTER_LEFT -> Gravity.CENTER_VERTICAL and Gravity.LEFT
-            Alignment.CENTER -> Gravity.CENTER
-            Alignment.CENTER_RIGHT -> Gravity.CENTER_VERTICAL and Gravity.RIGHT
-            Alignment.BOTTOM_LEFT -> Gravity.BOTTOM and Gravity.LEFT
-            Alignment.BOTTOM_CENTER -> Gravity.BOTTOM and Gravity.CENTER_HORIZONTAL
-            Alignment.BOTTOM_RIGHT -> Gravity.BOTTOM and Gravity.RIGHT
-        }
+        params.gravity = alignment.export()
         params.weight = weight
         return params
     }

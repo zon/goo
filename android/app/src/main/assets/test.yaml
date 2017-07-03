@@ -3,7 +3,7 @@ padding:
   top: 20
 children:
 
-  - layout: horizontal
+  - type: horizontal
     padding: 20
     spacing: 20
     height: 240
@@ -18,3 +18,11 @@ children:
 
       - height: fill
         background: 00e
+
+  - type: label
+    top: 260
+    font-size: 36
+    text-alignment: center
+    text: "Test"
+    color: "909"
+    background: ee0

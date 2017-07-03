@@ -12,7 +12,7 @@ class RelativeChild(
     bottom: Float = 0f,
     width: Measure? = null,
     height: Measure? = null
-) : ChildProps<RelativeLayout.LayoutParams>(left, right, top, bottom, width, height) {
+) : ChildLayout<RelativeLayout.LayoutParams>(left, right, top, bottom, width, height) {
 
     companion object {
 

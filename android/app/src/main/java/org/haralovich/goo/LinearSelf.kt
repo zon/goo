@@ -1,22 +1,17 @@
 package org.haralovich.goo
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.ScaleDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.fasterxml.jackson.databind.JsonNode
 
-class LinearParent(val direction: LinearDirection, val spacing: Float, padding: Inset) : SelfProps(padding) {
+class LinearSelf(val direction: LinearDirection, val spacing: Float, padding: Inset) : SelfLayout(padding) {
 
     companion object {
 
-        fun parse(direction: LinearDirection, json: JsonNode): LinearParent {
-            return LinearParent(
+        fun parse(direction: LinearDirection, json: JsonNode): LinearSelf {
+            return LinearSelf(
                 direction,
                 json.path("spacing").floatValue(),
                 Inset.parse(json.path("padding")) ?: Inset.zero
@@ -45,9 +40,6 @@ class LinearParent(val direction: LinearDirection, val spacing: Float, padding: 
             } else {
                 view.showDividers = LinearLayout.SHOW_DIVIDER_NONE
             }
-
-            Log.d("LIN", "SHOW " + view.showDividers)
-            Log.d("LIN", "DIV " + view.dividerDrawable + " " + view.dividerDrawable.minimumWidth)
 
         }
     }

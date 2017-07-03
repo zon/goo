@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import com.fasterxml.jackson.databind.JsonNode
 
-abstract class ChildProps<out P: ViewGroup.LayoutParams>(
+abstract class ChildLayout<out P: ViewGroup.LayoutParams>(
     var left: Float,
     var right: Float,
     var top: Float,
