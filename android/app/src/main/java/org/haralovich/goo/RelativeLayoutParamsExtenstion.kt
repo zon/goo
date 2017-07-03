@@ -1,5 +1,6 @@
 package org.haralovich.goo
 
+import android.view.View
 import android.widget.RelativeLayout
 
 var RelativeLayout.LayoutParams.alignParentLeft: Boolean
@@ -32,6 +33,38 @@ var RelativeLayout.LayoutParams.alignParentBottom: Boolean
     }
     set(value) {
         addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, if (value) RelativeLayout.TRUE else 0)
+    }
+
+var RelativeLayout.LayoutParams.leftOf: Int
+    get() {
+        return getRule(RelativeLayout.LEFT_OF)
+    }
+    set(value) {
+        addRule(RelativeLayout.LEFT_OF, value)
+    }
+
+var RelativeLayout.LayoutParams.rightOf: Int
+    get() {
+        return getRule(RelativeLayout.RIGHT_OF)
+    }
+    set(value) {
+        addRule(RelativeLayout.RIGHT_OF, value)
+    }
+
+var RelativeLayout.LayoutParams.below: Int
+    get() {
+        return getRule(RelativeLayout.BELOW)
+    }
+    set(value) {
+        addRule(RelativeLayout.BELOW, value)
+    }
+
+var RelativeLayout.LayoutParams.above: Int
+    get() {
+        return getRule(RelativeLayout.ABOVE)
+    }
+    set(value) {
+        addRule(RelativeLayout.ABOVE, value)
     }
 
 var RelativeLayout.LayoutParams.centerHorizontal: Boolean

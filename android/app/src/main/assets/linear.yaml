@@ -4,6 +4,8 @@ padding:
 children:
 
   - type: horizontal
+    left: 0
+    right: 0
     padding: 20
     spacing: 20
     height: 240
@@ -20,7 +22,12 @@ children:
         background: 00e
 
   - type: label
-    top: 260
+    below: previous
+    top: 20
+    padding:
+      left: 10
+      right: 10
+    center: horizontal
     font-size: 36
     text-alignment: center
     text: "Test"

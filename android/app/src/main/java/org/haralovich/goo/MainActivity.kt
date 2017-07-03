@@ -8,7 +8,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val json = Goo.load(applicationContext, "test")
+        val json = Goo.load(applicationContext, "relative")
         val element = Element.root(applicationContext, json)
         element.update()
 
