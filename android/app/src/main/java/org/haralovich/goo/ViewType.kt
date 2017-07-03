@@ -3,10 +3,7 @@ package org.haralovich.goo
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import com.fasterxml.jackson.databind.JsonNode
 
 enum class ViewType(val key: String) {
@@ -14,7 +11,8 @@ enum class ViewType(val key: String) {
     VERTICAL("vertical"),
     HORIZONTAL("horizontal"),
     LABEL("label"),
-    BUTTON("button");
+    BUTTON("button"),
+    IMAGE("image");
 
     companion object {
 
@@ -36,6 +34,7 @@ enum class ViewType(val key: String) {
             HORIZONTAL -> LinearLayout(context)
             LABEL -> TextView(context)
             BUTTON -> Button(context)
+            IMAGE -> ImageView(context)
         }
     }
 
@@ -46,6 +45,7 @@ enum class ViewType(val key: String) {
             HORIZONTAL -> LinearProps(LinearDirection.HORIZONTAL, json)
             LABEL -> LabelProps(json)
             BUTTON -> LabelProps(json)
+            IMAGE -> ImageProps(json)
         }
     }
 

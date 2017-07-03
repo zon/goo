@@ -33,3 +33,10 @@ children:
     text: "Test"
     color: "909"
     background: ee0
+
+  - type: image
+    below: previous
+    top: 20
+    src: pink_goo
+    center: horizontal
+    background: e00
