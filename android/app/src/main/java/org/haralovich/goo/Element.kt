@@ -1,7 +1,6 @@
 package org.haralovich.goo
 
 import android.content.Context
-import android.os.Debug
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode
 class Element(context: Context, json: JsonNode, parent: Element? = null) {
     val type = ViewType.parse(json.path("type")) ?: ViewType.RELATIVE
 
-    val props = when (type) {
-        ViewType.RELATIVE -> ViewProps(json)
-        ViewType.VERTICAL -> LinearProps(LinearDirection.VERTICAL, json)
-        ViewType.HORIZONTAL -> LinearProps(LinearDirection.HORIZONTAL, json)
-        ViewType.LABEL -> LabelProps(json)
-    }
+    val props = type.exportProps(json)
 
     var params = when(parent?.view) {
         is LinearLayout -> LinearChildParams(json)

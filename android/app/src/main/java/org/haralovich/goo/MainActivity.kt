@@ -8,11 +8,12 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val json = Goo.load(applicationContext, "relative")
+        val json = Goo.load(applicationContext, "linear")
         val element = Element.root(applicationContext, json)
         element.update()
 
         setTheme(android.R.style.Theme_DeviceDefault_NoActionBar)
         setContentView(element.view)
     }
+
 }

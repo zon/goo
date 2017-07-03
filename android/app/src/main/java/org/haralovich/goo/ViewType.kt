@@ -2,6 +2,8 @@ package org.haralovich.goo
 
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -11,7 +13,8 @@ enum class ViewType(val key: String) {
     RELATIVE("relative"),
     VERTICAL("vertical"),
     HORIZONTAL("horizontal"),
-    LABEL("label");
+    LABEL("label"),
+    BUTTON("button");
 
     companion object {
 
@@ -32,6 +35,17 @@ enum class ViewType(val key: String) {
             VERTICAL -> LinearLayout(context)
             HORIZONTAL -> LinearLayout(context)
             LABEL -> TextView(context)
+            BUTTON -> Button(context)
+        }
+    }
+
+    fun exportProps(json: JsonNode): ViewProps {
+        return when (this) {
+            RELATIVE -> ViewProps(json)
+            VERTICAL -> LinearProps(LinearDirection.VERTICAL, json)
+            HORIZONTAL -> LinearProps(LinearDirection.HORIZONTAL, json)
+            LABEL -> LabelProps(json)
+            BUTTON -> LabelProps(json)
         }
     }
 

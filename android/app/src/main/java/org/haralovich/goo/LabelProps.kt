@@ -22,6 +22,7 @@ class LabelProps(json: JsonNode) : ViewProps(json) {
             view.setTextColor(color)
             view.gravity = alignment.exportText()
             view.text = text
+            view.setAllCaps(false)
         }
     }
 
